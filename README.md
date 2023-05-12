@@ -6,8 +6,7 @@
 <body>
 	<h1>Customer Signup And Login</h1>
 	<p>This project requires a backend for login and signup REST APIs with Security/Web tokens. The project is built on SpringBoot and uses MySql database. Follow the steps below to install and set up the project.</p>
-less
-Copy code
+
 <h2>Prerequisites</h2>
 <ul>
 	<li>Java JDK 11 or higher</li>
