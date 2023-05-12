@@ -21,7 +21,7 @@ public class AppConfig {
 		.and()
 		.csrf().disable()
 		.authorizeHttpRequests()
-		.requestMatchers(HttpMethod.POST, "/signup")
+		.requestMatchers(HttpMethod.POST, "/customers")
 		.permitAll()
 		.requestMatchers(HttpMethod.GET,"/customers").hasRole("ADMIN")
 		.requestMatchers(HttpMethod.GET,"/customers/**").hasAnyRole("ADMIN","USER")

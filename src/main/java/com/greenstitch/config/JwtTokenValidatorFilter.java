@@ -63,13 +63,14 @@ public class JwtTokenValidatorFilter extends OncePerRequestFilter {
 
 	}
 
+	
 
 	/**
-	 * @param HttpServletRequest
-	 * @return boolean
 	 * 
-	 * 	this time this validation filter has to be executed for all the apis except
-	 *  the /login api
+	 * this time this validation filter has to be executed for all the apis except the /login api
+	 * @param request the HTTP servlet request
+	 * @return true if the request should not be filtered, false otherwise
+	 * @throws ServletException if a servlet-specific error occurs
 	 */
 	@Override
 	protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {

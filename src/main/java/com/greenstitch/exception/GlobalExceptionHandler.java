@@ -10,28 +10,40 @@ import org.springframework.web.context.request.WebRequest;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
+
+	
+	
+	
+	
+	@ExceptionHandler(CustomerException.class)
+	public ResponseEntity<MyErrorDetails> customerExceptionHandler(CustomerException ce, WebRequest req){
+		
+		
+		MyErrorDetails err= new MyErrorDetails();
+			err.setTimestamp(LocalDateTime.now());
+			err.setMessage(ce.getMessage());
+			err.setDetails(req.getDescription(false));
+				
+		return new ResponseEntity<MyErrorDetails>(err, HttpStatus.BAD_REQUEST);
+		
+	}
+	
+	
 	
 	@ExceptionHandler(Exception.class)
-    public ResponseEntity<MyErrorDetails> myAnyExpHandler(Exception ie, WebRequest req) {
-
-        MyErrorDetails err = new MyErrorDetails();
-        err.setTimestamp(LocalDateTime.now());
-        err.setMessage(ie.getMessage());
-        err.setDetails(req.getDescription(false));
-
-        return new ResponseEntity<MyErrorDetails>(err, HttpStatus.BAD_REQUEST);
-
-    }
-
-	@ExceptionHandler(UserNotFoundException.class)
-	public ResponseEntity<MyErrorDetails> myAnyExpHandler(UserNotFoundException ie,WebRequest req){
+	public ResponseEntity<MyErrorDetails> otherExceptionHandler(Exception se, WebRequest req){
 		
-		MyErrorDetails err = new MyErrorDetails();
-		err.setTimestamp(LocalDateTime.now());
-		err.setMessage(ie.getMessage());
-		err.setDetails(req.getDescription(false));
 		
-		return new ResponseEntity<MyErrorDetails>(HttpStatus.BAD_REQUEST);
+		MyErrorDetails err= new MyErrorDetails();
+			err.setTimestamp(LocalDateTime.now());
+			err.setMessage(se.getMessage());
+			err.setDetails(req.getDescription(false));
+				
+		return new ResponseEntity<MyErrorDetails>(err, HttpStatus.INTERNAL_SERVER_ERROR);
+		
 	}
-
+	
+	
+	
+	
 }
