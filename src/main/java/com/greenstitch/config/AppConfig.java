@@ -16,26 +16,23 @@ public class AppConfig {
 	@Bean
 	public SecurityFilterChain springSecurityConfiguration(HttpSecurity http) throws Exception {
 
-		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().csrf().disable()
-				.authorizeHttpRequests().requestMatchers(HttpMethod.POST, "/customers").permitAll()
-				.requestMatchers(HttpMethod.GET, "/customers").hasRole("ADMIN")
-				.requestMatchers(HttpMethod.GET, "/customers/**").hasAnyRole("ADMIN", "USER").anyRequest()
-				.authenticated().and().addFilterAfter(new JwtTokenGeneratorFilter(), BasicAuthenticationFilter.class)
-				.addFilterBefore(new JwtTokenValidatorFilter(), BasicAuthenticationFilter.class).formLogin().and()
-				.httpBasic();
+		http
+		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+		.and()
+		.csrf().disable()
+		.authorizeHttpRequests()
+		.requestMatchers(HttpMethod.POST, "/customers").permitAll()
+		.anyRequest().authenticated().and()
+		.addFilterAfter(new JwtTokenGeneratorFilter(), BasicAuthenticationFilter.class)
+		.addFilterBefore(new JwtTokenValidatorFilter(), BasicAuthenticationFilter.class)
+		.formLogin()
+		.and()
+		.httpBasic();
 
 		return http.build();
 
 	}
 
-	/**
-	 * 
-	 * Returns a new instance of the BCryptPasswordEncoder class that implements
-	 * PasswordEncoder interface. The BCryptPasswordEncoder is a strong password
-	 * hashing algorithm that generates an irreversible hash of a password.
-	 * 
-	 * @return the instance of BCryptPasswordEncoder.
-	 */
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 

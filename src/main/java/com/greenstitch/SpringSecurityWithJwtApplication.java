@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class GreenStitchApplication {
+public class SpringSecurityWithJwtApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(GreenStitchApplication.class, args);
+		SpringApplication.run(SpringSecurityWithJwtApplication.class, args);
 	}
 
 }

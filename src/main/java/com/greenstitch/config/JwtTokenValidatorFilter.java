@@ -45,8 +45,9 @@ public class JwtTokenValidatorFilter extends OncePerRequestFilter {
 
 				String authorities = (String) claims.get("authorities");
 
-				Authentication auth = new UsernamePasswordAuthenticationToken(username, null,
-						AuthorityUtils.commaSeparatedStringToAuthorityList(authorities));
+				List<GrantedAuthority> auths = AuthorityUtils.commaSeparatedStringToAuthorityList(authorities);
+
+				Authentication auth = new UsernamePasswordAuthenticationToken(username, null, auths);
 
 //				List<GrantedAuthority> authorities=(List<GrantedAuthority>)claims.get("authorities");
 //				Authentication auth = new UsernamePasswordAuthenticationToken(username, null, authorities); 
@@ -63,15 +64,9 @@ public class JwtTokenValidatorFilter extends OncePerRequestFilter {
 
 	}
 
-	
+	// this time this validation filter has to be executed for all the apis except
+	// the /login api
 
-	/**
-	 * 
-	 * this time this validation filter has to be executed for all the apis except the /login api
-	 * @param request the HTTP servlet request
-	 * @return true if the request should not be filtered, false otherwise
-	 * @throws ServletException if a servlet-specific error occurs
-	 */
 	@Override
 	protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
 
